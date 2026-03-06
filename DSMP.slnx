@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Examples/">
+    <Project Path="Examples/BullyAlgorithm/BullyAlgorithm.csproj" Id="392d8e88-b034-4915-a192-9f713284a521" />
+  </Folder>
   <Project Path="DSMP.Application/DSMP.Application.csproj" />
   <Project Path="DSMP.Collector/DSMP.Collector.csproj" />
 </Solution>
