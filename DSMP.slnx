@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DSMP.Application/DSMP.Application.csproj" />
+  <Project Path="DSMP.Collector/DSMP.Collector.csproj" />
+</Solution>

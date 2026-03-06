@@ -1,0 +1,12 @@
+syntax = "proto3";
+option csharp_namespace = "DSMP.Application";
+
+service Publisher {
+	rpc PushNumberOfProcessors(PushMetricRequest) returns (Reply);
+}
+
+message PushMetricRequest {
+	int32 process = 1;
+}
+
+message Reply { }
