@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DSMP.Collector.Protocols.Mqtt\DSMP.Collector.Protocols.Mqtt.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Protobuf Include="../DSMP.Application/Protos/publisher.proto" GrpcService="Client" />
   </ItemGroup>
   

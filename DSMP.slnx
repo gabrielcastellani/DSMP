@@ -3,5 +3,7 @@
     <Project Path="Examples/BullyAlgorithm/BullyAlgorithm.csproj" Id="392d8e88-b034-4915-a192-9f713284a521" />
   </Folder>
   <Project Path="DSMP.Application/DSMP.Application.csproj" />
+  <Project Path="DSMP.Collector.Protocols.Mqtt/DSMP.Collector.Protocols.Mqtt.csproj" Id="b68f892d-c943-4296-8584-1837729dee08" />
+  <Project Path="DSMP.Collector.Protocols/DSMP.Collector.Protocols.csproj" Id="5f7333ee-dcee-4540-8b43-05652d9216aa" />
   <Project Path="DSMP.Collector/DSMP.Collector.csproj" />
 </Solution>

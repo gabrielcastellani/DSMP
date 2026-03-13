@@ -1,24 +1,21 @@
 ﻿using DSMP.Application;
 using Grpc.Net.Client;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using MQTTnet;
 
-Console.WriteLine("Collector is running...");
-
-using var channel = GrpcChannel.ForAddress("https://localhost:7274");
-var metricsPublisher = new Publisher.PublisherClient(channel);
-
-while (true)
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+builder.WebHost.ConfigureKestrel(options =>
 {
-    var currentProcessors = Environment.ProcessorCount;
+    options.ListenLocalhost(5001, listenOptions =>
+    {
+        listenOptions.UseHttps();
+    });
+});
 
-    Console.WriteLine($"[Date: {DateTime.UtcNow}] - Data sent to the server");
+var app = builder.Build();
 
-    await metricsPublisher.PushNumberOfProcessorsAsync(
-        request: new PushMetricRequest
-        {
-            Process = currentProcessors
-        });
-
-
-
-    await Task.Delay(TimeSpan.FromSeconds(10));
-}
+app.UseHttpsRedirection();
+app.Run();
