@@ -6,7 +6,7 @@ using System.Buffers;
 
 namespace DSMP.Collector.Protocols.Mqtt
 {
-    public sealed class MqttProtocol : IMqttProtocol
+    internal sealed class MqttProtocol : IMqttProtocol
     {
         private readonly MqttClientFactory _mqttClientFactory;
 
@@ -15,9 +15,9 @@ namespace DSMP.Collector.Protocols.Mqtt
         public event EventHandler<MqttMessageReceivedEventArgs>? MessageReceived;
         public event EventHandler<ConnectionChangedEventArgs>? ConnectionChanged;
 
-        public MqttProtocol()
+        public MqttProtocol(MqttClientFactory mqttClientFactory)
         {
-            _mqttClientFactory = new MqttClientFactory();
+            _mqttClientFactory = mqttClientFactory;
         }
 
         public async Task Initialize(IProtocolSettings settings)
