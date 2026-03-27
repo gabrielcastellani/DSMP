@@ -11,6 +11,7 @@ namespace DSMP.Collector.Protocols.Mqtt
         private readonly MqttClientFactory _mqttClientFactory;
 
         private IMqttClient? _mqttClient;
+        private MqttProtocolSettings? _protocolSettings;
 
         public event EventHandler<MqttMessageReceivedEventArgs>? MessageReceived;
         public event EventHandler<ConnectionChangedEventArgs>? ConnectionChanged;
@@ -25,7 +26,8 @@ namespace DSMP.Collector.Protocols.Mqtt
             if (_mqttClient is not null)
                 return;
 
-            var options = BuildConnectionOptions(settings as MqttProtocolSettings);
+            _protocolSettings = settings as MqttProtocolSettings;
+            var options = BuildConnectionOptions(_protocolSettings);
 
             _mqttClient = _mqttClientFactory.CreateMqttClient();
             _mqttClient.ConnectedAsync += MqttClient_ConnectedAsync;
@@ -59,16 +61,18 @@ namespace DSMP.Collector.Protocols.Mqtt
 
 
         #region [ Event Handlers ]
-        private Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
+        private async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
         {
             ConnectionChanged?.Invoke(this, new ConnectionChangedEventArgs(true));
-            return Task.CompletedTask;
+
+            await _mqttClient.SubscribeAsync(_protocolSettings!.Topic);
         }
 
-        private Task MqttClient_DisconnectedAsync(MqttClientDisconnectedEventArgs arg)
+        private async Task MqttClient_DisconnectedAsync(MqttClientDisconnectedEventArgs arg)
         {
             ConnectionChanged?.Invoke(this, new ConnectionChangedEventArgs(false));
-            return Task.CompletedTask;
+
+            await _mqttClient.UnsubscribeAsync(_protocolSettings!.Topic);
         }
 
         private Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)

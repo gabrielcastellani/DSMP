@@ -1,6 +1,6 @@
-﻿namespace DSMP.Collector.Protocols.Mqtt
+﻿namespace DSMP.Collector.Domain.Channels.Aggregates
 {
-    public sealed class MqttProtocolSettings : IProtocolSettings
+    public class ChannelSettings
     {
         public string Host { get; set; }
         public int Port { get; set; }

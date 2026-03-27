@@ -2,7 +2,7 @@
 
 namespace DSMP.Collector.Protocols.Mqtt
 {
-    internal sealed class MqttProtocolFactory : IMqttProtocolFactory
+    public sealed class MqttProtocolFactory : IMqttProtocolFactory
     {
         private readonly MqttClientFactory _mqttClientFactory;
 
